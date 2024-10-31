@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Notes</title>
+    <link rel="stylesheet" href="asset/css/style.css">
+</head>
+
+<body>
+    <section>
+        <aside class="izqd" id="SideBar">
+            <div class="burger-container">
+                <div class="burger-image" id="Menu"></div>
+                <h1>My Notes</h1>
+            </div>
+            <div class="sidebar-container">
+                <h1>My Notes</h1>
+
+                <div class="add-notes">
+                    <p>Add Note</p>
+                    <img src="asset/img/plus-solid.svg" alt="Plus Icon">
+                </div>
+
+                <div class="note-conatiner">
+                    <div class="note normal">
+                        <div class="note-title">
+                            <h1>Lecture note</h1><img src="asset/img/note.png" alt="Note">
+                        </div>
+                        <p class="text">My lecture note, you can save your notes of your ....</p>
+                        <p class="time">16 october 2024</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <aside class="drch">
+            <div class="note-body-container">
+                <h1 contenteditable="true" id="Title">Enter a title</h1>
+                <h4 contenteditable="true" id="Time">16 october 2024, 2:20pm</h4>
+                <p contenteditable="true" id="NotePad">I am the note body...</p>
+            </div>
+        </aside>
+
+    </section>
+    <script src="./asset/js/SideBarController.js"></script>
+    <script type="module" src="./asset/js/NoteController.js"></script>
+</body>
+
+</html>
