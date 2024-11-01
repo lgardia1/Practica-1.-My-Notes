@@ -9,7 +9,7 @@ menu.addEventListener('click', ()=>{
 
 
 //  Elimina la clase show en caso que no se elimine con el click
-document.addEventListener('resize', ()=>{
+window.addEventListener('resize', ()=>{
     if(window.innerWidth > 1221) {
         sideBar.classList.remove('show');
     }

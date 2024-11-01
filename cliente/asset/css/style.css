@@ -26,13 +26,14 @@ section {
     align-items: stretch;
 }
 
+/*----------------Burger----------------*/
 .burger-container {
     display: none !important;
-    margin: 2rem 2rem 2rem 2rem;
+    margin: clamp(1.5rem, 1.333rem + 0.556vw, 2rem);
 }
 
 .burger-image {
-    height: 3rem;
+    height: clamp(2rem, 1.667rem + 1.111vw, 3rem);
     aspect-ratio: 1/1;
 
     background-image: url(../img/burger.svg);
@@ -41,38 +42,44 @@ section {
     background-repeat: no-repeat;
 }
 
-.burger-container > h1{
+.burger-container>h1 {
     display: none !important;
     font-weight: bold;
-    font-size: clamp(1.8rem, 1.358rem + 1.472vw, 3.125rem);
+    font-size: 2.3rem;
     margin: 0;
 }
 
-
+/*----------------------------Izquierda----------------------------*/
 .izqd {
     flex: 1.2;
+    height: 100%;
 
     background-color: #FFCA28;
-    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+
+    display: flex;
+    flex-flow: column nowrap;
 
     font-family: Montserrat;
 }
 
 .sidebar-container {
+    height: 100%;
     display: flex;
     flex-flow: column nowrap;
 
-    justify-content: flex-start;
     align-items: center;
 }
 
-.sidebar-container > h1 {
+/*------------Titulo------------*/
+.sidebar-container>h1 {
     font-weight: bold;
     font-size: clamp(1.8rem, 1.358rem + 1.472vw, 3.125rem);
     margin-top: 1.375rem;
     margin-bottom: 4.125rem;
 }
 
+/*------------Añadir nota------------*/
 .add-notes {
     display: flex;
     align-items: center;
@@ -98,54 +105,26 @@ section {
     height: 22px;
 }
 
-.note-conatiner {
+/*------------------Notas------------------*/
+.note-container{
     width: 100%;
-    height: auto;
+    height: 100%;
+
+    overflow-y: auto;
+    scrollbar-width: none;
 
     display: flex;
     flex-flow: column nowrap;
 
     align-items: center;
-    justify-content: center;
 
     gap: 2.125rem;
 }
 
 .note {
-    flex: 1 0 95px;
     width: clamp(4.688rem, 0rem + 15.625vw, 18.75rem);
     border-radius: 10px;
-    padding: 0.4375rem 1.25rem 0 1.25rem;
-
-    display: flex;
-    flex-flow: column nowrap;
-
-    justify-content: space-between;
-    align-items: center;
-}
-
-.note > * {
-    width: 100%;
-    margin: 0;
-}
-
-.normal {
-    background-color: var(--normal);
-    color: black;
-}
-
-.normal .time {
-    color: #808080;
-}
-
-.critic {
-    background-color: var(--critic);
-    color: white;
-}
-
-
-.critic .time {
-    color: #F2F2F2;
+    padding: .2rem 1.25rem;
 }
 
 .note-title {
@@ -166,8 +145,11 @@ section {
     height: 19px;
 }
 
-.note .txt {
+.note .text {
     font-size: clamp(0.9rem, 0.867rem + 0.111vw, 1rem);
+    word-wrap: break-word;
+    word-break: break-word;
+    margin: .4rem 0;
 }
 
 .note .time {
@@ -176,12 +158,32 @@ section {
     font-size: clamp(0.787rem, 0.758rem + 0.097vw, 0.875rem);
 }
 
+/*------------Tipos de notas------------*/
+.normal {
+    background-color: var(--normal);
+    color: black;
+}
+
+.normal .time {
+    color: #808080;
+}
+
+.critic {
+    background-color: var(--critic);
+    color: white;
+}
 
 
+.critic .time {
+    color: #F2F2F2;
+}
+
+
+/*----------------------------Derecha----------------------------*/
 .drch {
     flex: 5;
     display: flex;
-    
+
     justify-content: center;
     align-items: center;
 
@@ -189,30 +191,33 @@ section {
 }
 
 .note-body-container {
-    width: 74.16%;
-    height: 84.44%;
+    width: 100%;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    height: 90%;
 
     display: flex;
     flex-flow: column nowrap;
-    border: 1px solid red;
 }
 
-.note-body-container > *:nth-child(1) {
+.note-body-container>*:nth-child(1) {
     margin: 0;
-    font-size: 3.4375rem;
+    font-size: clamp(1.8rem, 1.254rem + 1.819vw, 3.438rem);
     font-weight: 600;
+    outline: none;
 }
 
-.note-body-container > *:nth-child(2) {
+.note-body-container>*:nth-child(2) {
     margin-top: 0.9375rem;
     margin-bottom: 1.875rem;
-    font-size: 0.9375rem;
+    font-size: clamp(0.6rem, 0.487rem + 0.375vw, 0.938rem);
     font-weight: 300;
+    outline: none;
 }
 
-.note-body-container > *:last-child {
+.note-body-container>*:nth-child(3) {
     margin: 0;
-    font-size: 1.375rem;
+    font-size: clamp(0.72rem, 0.501rem + 0.728vw, 1.375rem);
     font-weight: 400;
     height: 100%;
     outline: none;
@@ -221,71 +226,50 @@ section {
 @media screen and (max-width:1220px) {
     .izqd {
         flex: none;
-
-        height: 7rem;
-        width: 7rem;
-
-        transition: height 1s , width 1s ease;
+        height: clamp(5rem, 4.333rem + 2.222vw, 7rem);
+        width: clamp(5rem, 4.333rem + 2.222vw, 7rem);
+        transition: height 1s, width 1s ease;
     }
 
-    .drch {
-        flex: none;
-        width: 100%;
+    .izqd.show {
+        height: 100%;
+        width: 19.375rem;
     }
 
     .burger-container {
         display: flex !important;
-
         align-items: center;
         justify-content: center;
-
         gap: .8rem;
     }
 
-    .sidebar-container {
-        position: flex;
-        height: 100%;
-        
-        min-width: 300px;
-
-        visibility: hidden;
-        opacity: 0;
+    .izqd.show .burger-container {
+        margin: 1.375rem 0 4.125rem 0;
     }
-    
-    .izqd .sidebar-container > h1 {
+
+    .izqd.show .burger-container>h1 {
+        display: block !important;
+    }
+
+    .sidebar-container {
+        height: calc(100% - 1.375rem - 4.125rem - 2.8rem);
+        transform: translateX(-19.375rem);
+        transition: transform 1s ease;
+    }
+
+    .izqd.show .sidebar-container {
+        transform: translateX(0);
+    }
+
+    .izqd .sidebar-container>h1 {
         display: none !important;
     }
-}
 
-.izqd.show {
-    position: fixed;
+    .izqd .sidebar-container>* {
+        min-width: 18.75rem;
+    }
 
-    height: 100%;
-    width: 19.375rem;
-}
-
-.izqd.show .burger-container {
-    margin-top: 1.375rem;
-    margin-bottom: 4.125rem;
-    
-}
-
-.izqd.show .burger-container > h1{
-    display: block !important;
-}
-
-.izqd.show .sidebar-container {
-    border-radius: 10px;
-    visibility: visible;
-    opacity: 1;
-
-    transition: opacity 1s ease; 
-}
-
-.izqd.show .sidebar-container  .add-notes {
-    width: 18.75rem;
-}
-
-.izqd.show .sidebar-container .note {
-    width: 18.75rem;
+    .izqd .sidebar-container .note {
+        width: 18.75rem;
+    }
 }

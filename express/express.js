@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 // Conexión a MongoDB usando Mongoose
-const mongoURI = 'mongodb://localhost:27017/notes';
+const mongoURI = 'mongodb://localhost:27017/notedb';
 mongoose.connect(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -21,8 +21,8 @@ mongoose.connect(mongoURI, {
 const schemaNotes = new mongoose.Schema({
     title: { type: String, required: true },
     content: { type: String, required: true },
-    dateCreate: { type: Date, required: true, default: Date.now },
-    typeNote: { type: String, enum: ['normal', 'critical'], required: true, default: 'normal' }
+    dateCreate: { type: Date, required: false, default: Date.now },
+    typeNote: { type: String, enum: ['normal', 'critic'], required: false, default: 'normal' },
 });
 
 // Crear el modelo con el esquema
@@ -30,18 +30,19 @@ const Notes = mongoose.model('Notes', schemaNotes);
 
 // La creación de una nota aquí debe estar en un endpoint
 app.post('/createNotes', async (req, res) => {
+
     const { title, content, dateCreate, typeNote } = req.body;
 
-    const nuevaNota = new Notes({
+    const note = new Notes({
         title,
         content,
-        dateCreate: dateCreate ? new Date(dateCreate) : undefined,
-        typeNote // Se asigna la prioridad
+        dateCreate: dateCreate !== undefined ? new Date(dateCreate) : Date.now,
+        typeNote : typeNote !== undefined ? typeNote : 'normal',
     });
 
     try {
-        const notaGuardada = await nuevaNota.save();
-        res.status(201).json(notaGuardada); // Devuelve la nota creada
+        const noteSaved = await note.save();
+        res.status(201).json(noteSaved); // Devuelve la nota creada
     } catch (error) {
         res.status(400).json({ message: error.message }); // Manejo de errores
     }
@@ -51,8 +52,29 @@ app.post('/createNotes', async (req, res) => {
 app.get('/obtainsNotes', async (req, res) => {
     try {
         const notas = await Notes.find(); 
-        res.json(notas); 
+        res.status(201).json(notas); 
     } catch (error) {
+        res.status(500).json({ message: error.message }); 
+    }
+});
+
+app.put('/putNote', async (req, res)=> {
+    const {_id, title, content, dateCreate, typeNote } = req.body;
+
+    try{
+       const note = await Notes.findById(_id);
+        if(!note) {
+            return res.status(404).json({ message: 'Nota no encontrada' });
+        }    
+        
+        note.title = title !== undefined ? title : note.title;
+        note.content = content !== undefined ? content : note.content;
+        note.dateCreate = dateCreate !== undefined ? dateCreate : note.dateCreate;
+        note.tittypeNotele = typeNote !== undefined ? typeNote : note.typeNote;
+
+        const noteSaved = await note.save();
+        res.status(200).json(noteSaved);
+    }catch(error){
         res.status(500).json({ message: error.message }); 
     }
 });
