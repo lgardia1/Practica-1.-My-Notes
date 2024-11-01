@@ -1,5 +1,6 @@
 import { UI } from "./module/UI.js";
 import { TextHandle } from "./module/TextHandle.js";
+import { NoteConsumer } from "./module/NoteConsumer.js";
 
 //Variables:
 //----Inputs----
@@ -25,5 +26,28 @@ const connection = TextHandle.getInstance(url);
 
 
 let data = await connection.getAllNotes(get);
-UI.showNotes(data, noteContainer, titleInput ,timeInput ,noteInput ,noteID);
-UI.addNote();
+const notes = NoteConsumer.consumer(data);
+
+const schemaElement = {
+    elementParent: (() => {
+        const div = document.createElement('div');
+        div.classList.add('note'); 
+        return div; 
+    })(),
+    element: 
+            `
+                <div class="note-title">
+                    <h1>$$title</h1>
+                    <img src="asset/img/$$image" alt="Note">
+                </div>
+                <p class="text">$$content</p>
+                <p class="time">$$date</p>
+            `
+};
+
+NoteConsumer.modelElement(notes, schemaElement);
+
+
+UI.showNotes(notes, noteContainer);
+UI.showInputs(notes, titleInput, timeInput, noteInput, noteID);
+

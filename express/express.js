@@ -58,6 +58,7 @@ app.get('/obtainsNotes', async (req, res) => {
     }
 });
 
+//
 app.put('/putNote', async (req, res)=> {
     const {_id, title, content, dateCreate, typeNote } = req.body;
 
